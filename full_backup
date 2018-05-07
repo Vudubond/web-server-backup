@@ -14,9 +14,9 @@ MYSQL_USER="root"
 MYSQL_PASS=""
 MYSQL_BACKUP_DIR="$BACKUP_DIR/mysql/"
 
-SITES_DIR="/var/www/sites/"
+SITES_DIR="/var/www/sites"
 SITES_BACKUP_DIR="$BACKUP_DIR/sites/"
-
+SITE_NAME=""
 
 # See s3sync info in README
 S3SYNC_PATH="/usr/local/s3sync/s3sync.rb"
@@ -94,11 +94,11 @@ if [ "$TAR_SITES" == "true" ]
   # Get a list of files in the sites directory and tar them one by one
   echo "------------------------------------"
   cd $SITES_DIR
-  for d in *
-  do
+  #for d in *
+  #do
     echo "Archiving $d..."
-    $TAR_PATH --exclude="*/log" -C $SITES_DIR -czf $SITES_BACKUP_DIR/$d\_$THE_DATE.tgz $d
-  done
+    $TAR_PATH -cpzf $SITES_BACKUP_DIR$SITE_NAME\_$THE_DATE.tgz $SITES_DIR
+  #done
 
   # Delete old site backups
   echo "------------------------------------"
